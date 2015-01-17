@@ -1,0 +1,20 @@
+{
+  "name": "react-chat",
+  "version": "0.0.0",
+  "homepage": "https://github.com/cpsubrian/react-chat",
+  "authors": [
+    "Brian Link <cpsubrian@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "~5.5.0"
+  }
+}

@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/cpsubrian/react-chat/issues"
   },
-  "homepage": "https://github.com/cpsubrian/react-chat"
+  "homepage": "https://github.com/cpsubrian/react-chat",
+  "dependencies": {
+    "cantina": "^4.1.7",
+    "cantina-web": "^4.2.3",
+    "cantina-webpack": "^4.1.1"
+  }
 }

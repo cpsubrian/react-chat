@@ -1,0 +1,5 @@
+webpack:
+  context: client
+  resolve:
+    root: client
+  watch: true
