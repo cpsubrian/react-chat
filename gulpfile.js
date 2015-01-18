@@ -3,24 +3,17 @@ var gulp = require('gulp')
   , nodemon = require('gulp-nodemon')
   , less = require('gulp-less')
   , sourcemaps = require('gulp-sourcemaps')
+  , autoprefixer = require('gulp-autoprefixer')
   , del = require('del');
-
-// Paths
-var paths = {
-  client: 'client',
-  boot: 'client/boot.js',
-  styles: 'client/styles/**/*.less',
-  build: 'public/build'
-};
 
 // Clean
 gulp.task('clean', function (cb) {
-  del([paths.build], cb);
+  del(['public/build'], cb);
 });
 
 // Webpack task.
 gulp.task('webpack', ['clean'], function () {
-  return gulp.src(paths.boot)
+  return gulp.src('client/boot.js')
     .pipe(webpack({
       watch: true,
       devtool: 'source-map',
@@ -28,16 +21,23 @@ gulp.task('webpack', ['clean'], function () {
         filename: 'bundle.js'
       }
     }))
-    .pipe(gulp.dest(paths.build));
+    .pipe(gulp.dest('public/build'));
 });
 
 // LESS compilation.
 gulp.task('less', ['clean'], function () {
-  return gulp.src(paths.styles)
+  return gulp.src('client/styles.less')
     .pipe(sourcemaps.init())
-    .pipe(less())
+    .pipe(less({
+      paths: [
+        'node_modules',
+        'bower_components',
+        'client/less'
+      ]
+    }))
+    .pipe(autoprefixer())
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(paths.build));
+    .pipe(gulp.dest('public/build'));
 });
 
 // Start the server.
@@ -49,5 +49,10 @@ gulp.task('server', function () {
     });
 });
 
+// Watch for relevant changes.
+gulp.task('watch', function () {
+  gulp.watch('client/**/*.less', ['less']);
+});
+
 // Default task.
-gulp.task('default', ['webpack', 'less', 'server']);
+gulp.task('default', ['webpack', 'less', 'server', 'watch']);
