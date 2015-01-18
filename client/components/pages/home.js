@@ -1,7 +1,8 @@
 var React = require('react');
 
-// Home Component
-module.exports = React.createClass({
+var Home = module.exports = React.createClass({
+
+  displayName: 'Home',
 
   render: function () {
     return (

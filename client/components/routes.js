@@ -6,7 +6,7 @@ var React = require('react')
 var App = require('./app')
   , Home = require('./pages/home');
 
-module.exports = (
+var routes = module.exports = (
   <Route handler={App}>
     <DefaultRoute handler={Home}/>
   </Route>

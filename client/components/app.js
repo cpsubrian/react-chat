@@ -3,7 +3,10 @@ var React = require('react')
   , RouteHandler = Router.RouteHandler;
 
 // App Component
-module.exports = React.createClass({
+var App = module.exports = React.createClass({
+
+  displayName: 'App',
+
   mixins: [Router.state],
 
   render: function () {
