@@ -19,6 +19,11 @@
   "dependencies": {
     "cantina": "^4.1.7",
     "cantina-web": "^4.2.3",
-    "cantina-webpack": "^4.1.1"
+    "del": "^1.1.1",
+    "gulp": "^3.8.10",
+    "gulp-less": "^2.0.1",
+    "gulp-nodemon": "^1.0.5",
+    "gulp-sourcemaps": "^1.3.0",
+    "gulp-webpack": "^1.1.2"
   }
 }

@@ -5,7 +5,6 @@ app.boot(function (err) {
 
   // Load plugins.
   app.require('cantina-web');
-  app.require('cantina-webpack');
 
   // Run loaders.
   app.load('web');
