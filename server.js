@@ -1,5 +1,10 @@
-var app = require('cantina').createApp();
+var app = require('cantina').createApp()
+  , jsx = require('node-jsx');
 
+// 'Install' jsx loader.
+jsx.install();
+
+// Boot app.
 app.boot(function (err) {
   if (err) throw err;
 

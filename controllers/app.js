@@ -1,11 +1,20 @@
 module.exports = function (app) {
   var controller = app.controller();
 
+  var React = require('react')
+    , Router = require('react-router')
+    , routes = require('../client/components/routes');
+
   controller.get('*', function (req, res, next) {
+    // General setup.
     res.vars.styles = ['/build/styles.css'];
     res.vars.scripts = ['/build/bundle.js'];
-    res.vars.page = '<p>This would be the prerendered page</p>';
-    res.render('page');
+
+    // Run Router.
+    Router.run(routes, req.href.path, function (Handler) {
+      res.vars.page = React.renderToString(<Handler/>);
+      res.render('page');
+    });
   });
 
   return controller;
