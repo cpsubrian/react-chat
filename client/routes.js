@@ -3,8 +3,8 @@ var React = require('react')
   , Route = Router.Route
   , DefaultRoute = Router.DefaultRoute;
 
-var App = require('./app')
-  , Home = require('./pages/home');
+var App = require('./components/app')
+  , Home = require('./components/pages/home');
 
 var routes = module.exports = (
   <Route handler={App}>

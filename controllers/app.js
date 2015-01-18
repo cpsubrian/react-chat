@@ -3,7 +3,7 @@ module.exports = function (app) {
 
   var React = require('react')
     , Router = require('react-router')
-    , routes = require('../client/components/routes');
+    , routes = require('../client/routes');
 
   controller.get('*', function (req, res, next) {
     // General setup.
