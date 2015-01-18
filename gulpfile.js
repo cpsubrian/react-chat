@@ -1,4 +1,5 @@
-var gulp = require('gulp')
+var path = require('path')
+  , gulp = require('gulp')
   , webpack = require('gulp-webpack')
   , nodemon = require('gulp-nodemon')
   , less = require('gulp-less')
@@ -19,6 +20,18 @@ gulp.task('webpack', ['clean'], function () {
       devtool: 'source-map',
       output: {
         filename: 'bundle.js'
+      },
+      resolve: {
+        root: path.join(__dirname, 'client'),
+        modulesDirectories: [
+          'node_modules',
+          'bower_components'
+        ]
+      },
+      module: {
+        loaders: [
+          { test: /\.js$/, loader: 'jsx-loader' }
+        ]
       }
     }))
     .pipe(gulp.dest('public/build'));
