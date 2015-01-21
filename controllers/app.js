@@ -5,7 +5,12 @@ module.exports = function (app) {
     , Router = require('react-router')
     , routes = require('../client/routes');
 
-  controller.get('*', function (req, res, next) {
+  controller.post('/api/chats', function (req, res, next) {
+    console.log(req.body);
+    res.redirect('/');
+  });
+
+  controller.add('*', function (req, res, next) {
     // General setup.
     res.vars.styles = ['/build/styles.css'];
     res.vars.scripts = ['/build/bundle.js'];

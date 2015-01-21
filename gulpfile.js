@@ -1,6 +1,7 @@
 var path = require('path')
   , gulp = require('gulp')
-  , webpack = require('gulp-webpack')
+  , webpackGulp = require('gulp-webpack')
+  , webpack = require('webpack')
   , nodemon = require('gulp-nodemon')
   , less = require('gulp-less')
   , sourcemaps = require('gulp-sourcemaps')
@@ -13,11 +14,10 @@ gulp.task('clean', function (cb) {
 });
 
 // Webpack task.
-gulp.task('webpack', ['clean'], function () {
+gulp.task('webpack', function () {
   return gulp.src('client/boot.js')
-    .pipe(webpack({
-      watch: true,
-      devtool: 'source-map',
+    .pipe(webpackGulp({
+      //devtool: 'source-map',
       output: {
         filename: 'bundle.js'
       },
@@ -32,40 +32,52 @@ gulp.task('webpack', ['clean'], function () {
         loaders: [
           { test: /\.js$/, loader: 'jsx-loader' }
         ]
-      }
+      },
+      plugins: [
+        // Support for bower components.
+        new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+        ),
+        // For production:
+        //new webpack.optimize.UglifyJsPlugin({
+        //  sourceMap: true, compress: {warnings: false}
+        //}),
+      ]
     }))
     .pipe(gulp.dest('public/build'));
 });
 
 // LESS compilation.
-gulp.task('less', ['clean'], function () {
-  return gulp.src('client/styles.less')
+gulp.task('less', function () {
+  return gulp.src('client/styles/styles.less')
     .pipe(sourcemaps.init())
     .pipe(less({
       paths: [
         'node_modules',
         'bower_components',
         'client/less'
-      ]
+      ],
+      compress: true
     }))
-    .pipe(autoprefixer())
+    .pipe(autoprefixer('last 10 versions', 'ie 9'))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('public/build'));
 });
 
+// Watch for relevant changes.
+gulp.task('watch', function () {
+  gulp.watch('client/**/*.less', ['less']);
+  gulp.watch('client/**/*.js', ['webpack']);
+});
+
 // Start the server.
-gulp.task('server', function () {
-  nodemon({ script: 'server.js', ext: 'hbs js', ignore: ['client/*', 'public/*'] })
+gulp.task('build', ['webpack', 'less', 'watch'], function () {
+  nodemon({script: 'server.js', ignore: ['client/**/*.less', 'public/*', 'bower_components/*']})
     //.on('change', ['lint'])
     .on('restart', function () {
       console.log('restarted!');
     });
 });
 
-// Watch for relevant changes.
-gulp.task('watch', function () {
-  gulp.watch('client/**/*.less', ['less']);
-});
-
 // Default task.
-gulp.task('default', ['webpack', 'less', 'server', 'watch']);
+gulp.task('default', ['clean', 'build']);
