@@ -1,11 +1,10 @@
 module.exports = function (app) {
   var controller = app.controller();
 
-  /*
   var React = require('react')
     , Router = require('react-router')
-    , routes = require('../client/routes');
-  */
+    , routes = require('../client/routes')
+    , flux = require('../client/flux');
 
   controller.post('/api/chats', function (req, res, next) {
     console.log(req.body);
@@ -18,13 +17,10 @@ module.exports = function (app) {
     res.vars.scripts = ['/build/bundle.js'];
 
     // Run Router.
-    /*Router.run(routes, req.href.path, function (Handler) {
-      res.vars.page = React.renderToString(<Handler/>);
+    Router.run(routes, req.href.path, function (Handler) {
+      res.vars.page = React.renderToString(<Handler flux={flux}/>);
       res.render('page');
     });
-    */
-
-   res.render('page');
   });
 
   return controller;
