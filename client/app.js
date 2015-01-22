@@ -1,24 +1,21 @@
 var React = require('react')
   , Router = require('react-router')
   , RouteHandler = Router.RouteHandler
-  , Immutable = require('immutable')
-  , idgen = require('idgen');
+  , Fluxxor = require('fluxxor')
+  , FluxMixin = Fluxxor.FluxMixin(React)
+  , StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 // App Component
 var App = module.exports = React.createClass({
 
   displayName: 'App',
-  mixins: [Router.state],
+  mixins: [Router.state, FluxMixin, StoreWatchMixin('ChatStore', 'UserStore')],
 
-  getDefaultProps: function () {
+  getStateFromFlux: function () {
+    var flux = this.getFlux();
     return {
-      chats: [
-        {key: idgen(), user: 'Leona', msg: 'Hello, World!'},
-      ],
-      users: [
-        {key: idgen(), name: 'Leona'},
-        {key: idgen(), name: 'Vayne'},
-      ]
+      users: flux.store('UserStore').getState(),
+      chats: flux.store('ChatStore').getState(),
     };
   },
 
@@ -27,7 +24,7 @@ var App = module.exports = React.createClass({
       <div className="app">
         <h1>React Chat App</h1>
         <div className="content">
-          <RouteHandler {...this.props}/>
+          <RouteHandler {...this.state} account={this.state.users[0]}/>
         </div>
       </div>
     );

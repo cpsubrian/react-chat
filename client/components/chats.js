@@ -1,8 +1,11 @@
-var React = require('react');
+var React = require('react')
+  , Fluxxor = require('fluxxor')
+  , FluxMixin = Fluxxor.FluxMixin(React);
 
 var Chats = module.exports = React.createClass({
 
   displayName: 'Chats',
+  mixins: [FluxMixin],
 
   render: function () {
     return (
@@ -11,7 +14,7 @@ var Chats = module.exports = React.createClass({
         <ul>
           {this.props.chats.map(function (chat) {
             return (
-              <li key={chat.key}><strong>{chat.user}</strong> {chat.msg}</li>
+              <li key={chat.id}><strong>{chat.user.name}</strong> {chat.message}</li>
             );
           })}
         </ul>

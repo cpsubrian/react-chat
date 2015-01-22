@@ -1,8 +1,11 @@
-var React = require('react');
+var React = require('react')
+  , Fluxxor = require('fluxxor')
+  , FluxMixin = Fluxxor.FluxMixin(React);
 
 var Users = module.exports = React.createClass({
 
   displayName: 'Users',
+  mixins: [FluxMixin],
 
   render: function () {
     return (
@@ -11,7 +14,7 @@ var Users = module.exports = React.createClass({
         <ul>
           {this.props.users.map(function (user) {
             return (
-              <li key={user.key}>{user.name}</li>
+              <li key={user.id}>{user.name}</li>
             );
           })}
         </ul>
