@@ -1,4 +1,37 @@
 body {
-  padding: 30px;
   background: #dde2e2;
+}
+.row {
+  max-width: 100%;
+}
+#page, .app, .content, .home, .home > .row {
+  height: 100%;
+  box-sizing: border-box;
+}
+.app {
+  padding-top: 40px;
+}
+h1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0 20px;
+  height: 40px;
+  line-height: 40px;
+  background: #444;
+  color: #eee;
+  font-size: 1.1em;
+  text-transform: uppercase;
+}
+.chats-pane {
+  height: 100%;
+  border: 1px solid #fff;
+  border-right: 1px solid #ccc;
+}
+.users-pane {
+  height: 100%;
+  border: 1px solid #fff;
+  border-left: 1px solid #fff;
 }

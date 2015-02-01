@@ -11,11 +11,11 @@ var Home = module.exports = React.createClass({
     return (
       <div className="home">
         <div className="row">
-          <div className="columns small-8">
+          <div className="columns small-8 chats-pane">
             <Chats {...this.props}/>
             <ChatBox {...this.props}/>
           </div>
-          <div className="columns small-4">
+          <div className="columns small-4 users-pane">
             <Users {...this.props}/>
           </div>
         </div>
